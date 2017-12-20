@@ -1,5 +1,9 @@
 # chef-server
 
+This is a modification of cbuisson/chef-server. I added chef browser and made it over docker-composea altogether. chef browser code was taken from 3ofcoins/chef-browser.
+
+------------------------------------------------------------------------------
+
 chef-server will run Chef Server 12 in an Ubuntu Trusty 14.04 LTS container.  
 Image Size: Approximately 1GB
 

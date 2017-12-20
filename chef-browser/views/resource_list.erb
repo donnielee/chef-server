@@ -1,0 +1,27 @@
+<% if data_bag -%>
+<div class="page-header">
+  <h1><%= data_bag.chef_id %></h1>
+</div>
+<% end -%>
+<% if search_query -%>
+<%   if resources.empty? -%>
+<p class="lead">No matching results found.</p>
+<%   else -%>
+<p class="lead">Search results (<%= resources.length %>)</p>
+<%   end -%>
+<% end -%>
+<ul class="list-unstyled">
+<% if resources.class == Hash -%>
+<%   resources.sort.each do |cookbook, versions| -%>
+  <li><%= cookbook %>
+<%     versions.sort_by { |ver| Semverse::Version.new(ver) }.reverse.each do |version| -%>
+    <a href='<%= url "/cookbook/#{cookbook}-#{version}" %>'><%= version %></a><%= resources[cookbook.to_s].length == 1 ? "" : ( version == resources[cookbook.to_s].sort.first ? "" : ", " ) %>
+<%     end -%>
+  </li>
+<%   end -%>
+<% else -%>
+<%   resources.sort.each do |resource| -%>
+  <li><a href='<%= url resource.url %>'><%= resource.chef_id || resource.name %></a></li>
+<%   end -%>
+<% end -%>
+</ul>

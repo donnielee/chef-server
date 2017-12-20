@@ -6,6 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir /opt/chef-browser
 ADD chef-browser /opt/chef-browser
 ADD knife.rb /
+ADD trosadmin.pem /
+ADD trosadmin-org-validator.pem /
 
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends wget curl rsync && \

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  chef-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /usr/local/bin/run.sh
+#    volumes:
+#      - /var/opt/opscode:/var/opt/opscode
+    volumes:
+      - chef-server:/var/opt/opscode
+      - chef-server-certificate:/etc/chef
+    networks:
+      - default
+    ports:
+      - 443:443
+    privileged: true
+
+  chef-browser:
+    build:
+      context: ./chef-browser
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - 9292:9292
+    volumes:
+      - chef-server-certificate:/opt/chef-browser/features/fixtures
+
+volumes:
+    chef-server:
+    chef-server-certificate:
+
+networks:
+  default:
+    driver: bridge

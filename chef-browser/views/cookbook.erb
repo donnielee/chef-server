@@ -1,0 +1,22 @@
+<%== erb :cookbook_head, layout: false %>
+<div class='row'>
+  <div class='col-md-8'>
+<% cookbook.root_files.each do |file| -%>
+<%   if file['name'].downcase =~ /readme/ -%>
+<%==   ChefBrowser::FileContent.show_file(file) %>
+<%     break -%>
+<%   else -%>
+<%==   pretty_metadata('long_description', cookbook.metadata['long_description']) %>
+<%     break -%>
+<%   end -%>
+<% end -%>
+  </div>
+  <div class='col-md-4' id='basic'>
+    <dl class='dl-horizontal'>
+<% COOKBOOK_BASIC_METADATA.each do |b| -%>
+<%   unless cookbook.metadata[b].empty? -%>
+<%==   pretty_metadata(b, cookbook.metadata[b]) unless b == 'long_description' %>
+<%   end -%>
+<% end -%>
+    </dl>
+  </div>

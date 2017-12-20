@@ -1,0 +1,15 @@
+version: '3'
+services:
+  chef-browser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+     - chefserver_default
+#      - default
+    ports:
+      - 9292:9292
+
+#networks:
+#  default:
+#    driver: bridge

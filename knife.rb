@@ -1,0 +1,9 @@
+log_level                :info
+log_location             STDOUT
+node_name                "trosadmin"
+client_key               "/etc/chef/trosadmin.pem"
+validation_client_name   "trosadmin-org-validator"
+validation_key           "/etc/chef/trosadmin-org-validator.pem"
+#chef_server_url          "https://dcos-api:443/organizations/trosadmin-org"
+chef_server_url          "https://chef-server:443/organizations/trosadmin-org"
+syntax_check_cache_path  "/etc/chef//syntax_check_cache"

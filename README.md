@@ -3,7 +3,7 @@
 This is a modification of cbuisson/chef-server. I added chef browser and made it over docker-composea altogether. chef browser code was taken from 3ofcoins/chef-browser.
 
 # docker-compose 설치 
-               
+
             
 먼저 docker와 docker-compose를 설치한다.
 
@@ -20,6 +20,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 4. docker-compose --version
 ```
 # chef-server build 및 run하기-Version 1
+
+![chef-server configuration](https://github.com/donnielee/chef-server/blob/master/image2017-12-6%2010_24_59.png)
+
 
 
 ```

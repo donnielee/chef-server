@@ -1,8 +1,8 @@
-# chef-server
+## chef-server
 
 This is a modification of cbuisson/chef-server. I added chef browser and made it over docker-composea altogether. chef browser code was taken from 3ofcoins/chef-browser.
 
-# docker-compose 설치 
+## docker-compose 설치 
 
             
 먼저 docker와 docker-compose를 설치한다.
@@ -19,7 +19,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 3. 설치가 잘 되었는지 확인한다.
 4. docker-compose --version
 ```
-# chef-server build 및 run하기-Version 1
+## chef-server build 및 run하기-Version 1
 
 ![chef-server configuration](https://github.com/donnielee/chef-server/blob/master/image2017-12-6%2010_24_59.png)
 
@@ -47,7 +47,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 
 
-# chef-server build 및 run하기-Version 2
+## chef-server build 및 run하기-Version 2
  
 위의 'chef-server build 및 run하기-Version 1'에서는 chef-server에서 생성된 인증서(trosadmin.pem과 trosadmin-org-validator.pem)를 복사하여 chef-browser에 저장하였는데, Version 2에서는 이런 절차없이 자동으로 복사 및 저장되도록 하였다. 이는 docker-compose의 shared volume을 사용하여 구현하였다. Version 1과 마찬가지로, chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
 

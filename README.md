@@ -20,6 +20,7 @@ docker-compose --version
 # chef-server build 및 run하기-Version 1
 
 
+```
 아래의 docker-compose는 꼭 chef의 경우 chef-server라는 directory에서, razor는 razor-server라는 directory에서 실행해야 한다. 그 이유는 container가 directory의 이름을 container의 이름 앞에 붙여서 사용하며, container 이름을 hostname으로 이용하여 접속하기 때문이다.
 
 1. host machine에 사전에 /var/opt/opscode라는 directory를 root권한으로 생성한다. 이 directory는 chef-server container와 공유하는 volume이다. host machine에 사전에 directory를 생성하지 않고도, host에 container의 데이터를 저장하는 방법이 volume을 사용하는 것이다.
@@ -37,7 +38,7 @@ docker-compose --version
 7. /opt/chef-browser/features/fixtures로 이동한다. cd features/fixtures
 
 8. 여기에, trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 동일한 이름의 파일로 저장한 후, http://chef-server(또는 localhost 등):9292로 접속하여 chef-server가 동작하는 것을 확인한다. chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
- 
+``` 
 
 
 
@@ -45,6 +46,7 @@ docker-compose --version
  
 위의 'chef-server build 및 run하기-Version 1'에서는 chef-server에서 생성된 인증서(trosadmin.pem과 trosadmin-org-validator.pem)를 복사하여 chef-browser에 저장하였는데, Version 2에서는 이런 절차없이 자동으로 복사 및 저장되도록 하였다. 이는 docker-compose의 shared volume을 사용하여 구현하였다. Version 1과 마찬가지로, chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
 
+```bash
 version: '3'
 services:
 chef-server:
@@ -75,15 +77,15 @@ volumes:
 volumes:
 chef-server:
 chef-server-certificate:
-
+```
 
 
 
 혹시 run.sh 관련 에러가 발생할 경우에는 첨부된 Dockerfile의 내용에 아래와 같이 붉은색 부분 RUN을 추가하고, CMD를 변경하세요.
 
 
-
-[root@d-ttro-os42 chef-server]# cat Dockerfile
+```bash
+[root@chef-server]# cat Dockerfile
 FROM ubuntu:14.04
 MAINTAINER Clement Buisson <clement.buisson@gmail.com>
 
@@ -104,6 +106,7 @@ COPY run.sh configure_chef.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 VOLUME /var/log
 CMD ["/usr/local/bin/run.sh"]
+```
 
 ------------------------------------------------------------------------------
 

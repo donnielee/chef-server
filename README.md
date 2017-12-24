@@ -2,7 +2,7 @@
 
 This is a modification of cbuisson/chef-server. I added chef browser and made it over docker-composea altogether. chef browser code was taken from 3ofcoins/chef-browser.
 
-docker-compose 설치 
+# docker-compose 설치 
                
             
 먼저 docker와 docker-compose를 설치한다.
@@ -17,8 +17,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 설치가 잘 되었는지 확인한다.
 docker-compose --version
 
-chef-server build 및 run하기-Version 1
-T-CORE 과제 Mgmt. > 25. Chef, Razor Containerization > image2017-12-6 10:24:59.png
+# chef-server build 및 run하기-Version 1
+
 
 아래의 docker-compose는 꼭 chef의 경우 chef-server라는 directory에서, razor는 razor-server라는 directory에서 실행해야 한다. 그 이유는 container가 directory의 이름을 container의 이름 앞에 붙여서 사용하며, container 이름을 hostname으로 이용하여 접속하기 때문이다.
 
@@ -37,11 +37,11 @@ T-CORE 과제 Mgmt. > 25. Chef, Razor Containerization > image2017-12-6 10:24:59
 7. /opt/chef-browser/features/fixtures로 이동한다. cd features/fixtures
 
 8. 여기에, trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 동일한 이름의 파일로 저장한 후, http://chef-server(또는 localhost 등):9292로 접속하여 chef-server가 동작하는 것을 확인한다. chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
-      첨부 파일: chef-server.zip 
+ 
 
 
 
-chef-server build 및 run하기-Version 2
+# chef-server build 및 run하기-Version 2
  
 위의 'chef-server build 및 run하기-Version 1'에서는 chef-server에서 생성된 인증서(trosadmin.pem과 trosadmin-org-validator.pem)를 복사하여 chef-browser에 저장하였는데, Version 2에서는 이런 절차없이 자동으로 복사 및 저장되도록 하였다. 이는 docker-compose의 shared volume을 사용하여 구현하였다. Version 1과 마찬가지로, chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
 
@@ -76,7 +76,6 @@ volumes:
 chef-server:
 chef-server-certificate:
 
-첨부 파일: chef-server-1.zip
 
 
 

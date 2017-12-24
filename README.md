@@ -6,17 +6,19 @@ This is a modification of cbuisson/chef-server. I added chef browser and made it
                
             
 먼저 docker와 docker-compose를 설치한다.
+
 docker-compose는 다음과 같이 설치한다.(https://docs.docker.com/compose/install/#install-compose)
-docker compose를 다운로드한다. 
+```
+1. docker compose를 다운로드한다. 
 sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
-docker-compose의 permission을 변경한다.
+2. docker-compose의 permission을 변경한다.
 sudo chmod +x /usr/local/bin/docker-compose
 /usr/local/bin이 path에 빠졌다면, .bash_profile에 path를 추가한후, source 명령어를 실행한다.
 
-설치가 잘 되었는지 확인한다.
-docker-compose --version
-
+3. 설치가 잘 되었는지 확인한다.
+4. docker-compose --version
+```
 # chef-server build 및 run하기-Version 1
 
 

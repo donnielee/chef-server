@@ -22,14 +22,21 @@ T-CORE 과제 Mgmt. > 25. Chef, Razor Containerization > image2017-12-6 10:24:59
 
 아래의 docker-compose는 꼭 chef의 경우 chef-server라는 directory에서, razor는 razor-server라는 directory에서 실행해야 한다. 그 이유는 container가 directory의 이름을 container의 이름 앞에 붙여서 사용하며, container 이름을 hostname으로 이용하여 접속하기 때문이다.
 
-host machine에 사전에 /var/opt/opscode라는 directory를 root권한으로 생성한다. 이 directory는 chef-server container와 공유하는 volume이다. host machine에 사전에 directory를 생성하지 않고도, host에 container의 데이터를 저장하는 방법이 volume을 사용하는 것이다.
-Chef Dockerfile 및 docker-compose.yml 이 다운로드된 directory에서 docker-compose up 명령어를 실행하면, 이미지가 build되면서 container가 실행된다. (docker-compose up 명령어로 이미지가 생성되지 않고, error가 발생하면 docker-compose build로 이미지를 생성후 다시 docker-compose run 명령어를 실행하면 된다.) docker-compose 명령어로 생성 후 실행되는 container 이름은 해당 directory 이름이 앞에 붙는다. 예를 들어, docker images 명령어로 확인 결과 chefserver_chef-server과 chefserver_chef-browser라는 이미지가 생성되었다면, chefserver는 chef Dockerfile 및 docker-compose.yml 파일이 있던 directory 이름이고, chef-server, chef-browser는 docker-compose.yml 파일에 정의된 서비스 이름이다. 마찬가지로, docker images 명령어로 docker ps 명령어로 확인 결과 chefserver_chef-server_1과 chefserver_chef-browser_1라는 container가 생성되었다면, chefserver는 chef Dockerfile 및 docker-compose.yml 파일이 있던 directory 이름이고, chef-server, chef-browser는 docker-compose.yml 파일에 정의된 서비스 이름이며, _1은 인스턴스가 생성될 때 붙는다.
-docker-compose up 명령어를 실행 결과 Application efast_xs started on node 'erchef@127.0.0.1'이 출력되었으면 chef-server가 완전히 구동된 것이다.
-docker ps로 확인한 chef-server container의 id를 확인하여 접속한다. 예) docker exec -it 53f /bin/bash  chef-sever container에는 knife도 설치되어 있으며, /etc/chef에 knife.rb 파일이 있어서 여기서 명령어를 실행하면 된다.
-/etc/chef로 이동하여(cd /etc/chef) trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 복사한다.
-docker ps로 확인한 chef-browser container의 id를 확인하여 접속한다. 이 때는 옵션으로 -u 0를 사용하여 root 권한으로 접속한다. 그 이유는 chef-browser가 root가 아닌 www-data라는 계정으로 실행되기 때문이다. 예) docker exec -u 0 -it f45 /bin/bash
-/opt/chef-browser/features/fixtures로 이동한다. cd features/fixtures
-여기에, trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 동일한 이름의 파일로 저장한 후, http://chef-server(또는 localhost 등):9292로 접속하여 chef-server가 동작하는 것을 확인한다. chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
+1. host machine에 사전에 /var/opt/opscode라는 directory를 root권한으로 생성한다. 이 directory는 chef-server container와 공유하는 volume이다. host machine에 사전에 directory를 생성하지 않고도, host에 container의 데이터를 저장하는 방법이 volume을 사용하는 것이다.
+
+2. Chef Dockerfile 및 docker-compose.yml 이 다운로드된 directory에서 docker-compose up 명령어를 실행하면, 이미지가 build되면서 container가 실행된다. (docker-compose up 명령어로 이미지가 생성되지 않고, error가 발생하면 docker-compose build로 이미지를 생성후 다시 docker-compose run 명령어를 실행하면 된다.) docker-compose 명령어로 생성 후 실행되는 container 이름은 해당 directory 이름이 앞에 붙는다. 예를 들어, docker images 명령어로 확인 결과 chefserver_chef-server과 chefserver_chef-browser라는 이미지가 생성되었다면, chefserver는 chef Dockerfile 및 docker-compose.yml 파일이 있던 directory 이름이고, chef-server, chef-browser는 docker-compose.yml 파일에 정의된 서비스 이름이다. 마찬가지로, docker images 명령어로 docker ps 명령어로 확인 결과 chefserver_chef-server_1과 chefserver_chef-browser_1라는 container가 생성되었다면, chefserver는 chef Dockerfile 및 docker-compose.yml 파일이 있던 directory 이름이고, chef-server, chef-browser는 docker-compose.yml 파일에 정의된 서비스 이름이며, _1은 인스턴스가 생성될 때 붙는다.
+
+3. docker-compose up 명령어를 실행 결과 Application efast_xs started on node 'erchef@127.0.0.1'이 출력되었으면 chef-server가 완전히 구동된 것이다.
+
+4. docker ps로 확인한 chef-server container의 id를 확인하여 접속한다. 예) docker exec -it 53f /bin/bash  chef-sever container에는 knife도 설치되어 있으며, /etc/chef에 knife.rb 파일이 있어서 여기서 명령어를 실행하면 된다.
+
+5. /etc/chef로 이동하여(cd /etc/chef) trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 복사한다.
+
+6. docker ps로 확인한 chef-browser container의 id를 확인하여 접속한다. 이 때는 옵션으로 -u 0를 사용하여 root 권한으로 접속한다. 그 이유는 chef-browser가 root가 아닌 www-data라는 계정으로 실행되기 때문이다. 예) docker exec -u 0 -it f45 /bin/bash
+
+7. /opt/chef-browser/features/fixtures로 이동한다. cd features/fixtures
+
+8. 여기에, trosadmin.pem과 trosadmin-org-validator.pem 파일의 내용을 동일한 이름의 파일로 저장한 후, http://chef-server(또는 localhost 등):9292로 접속하여 chef-server가 동작하는 것을 확인한다. chef-server가 configure_chef.sh와 run.sh를 실행하는데, 몇 분 걸리기 때문에 그 동안 접속하면 http 에러가 발생한다는 것 참고하시기 바랍니다.
       첨부 파일: chef-server.zip 
 
 
